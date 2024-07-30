@@ -447,7 +447,7 @@ export const forgotPasswordController = async (req, res, next) => {
       to: user.email,
       subject: "Password Reset Request",
       text: `You requested a password reset. Please click on the following link to reset your password: 
-            http://localhost:3000/resetPassword/${token}`,
+            http://spendee-expense-management.vercel.app/resetPassword/${token}`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
