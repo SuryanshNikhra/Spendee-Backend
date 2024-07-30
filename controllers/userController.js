@@ -167,13 +167,12 @@
 //     const transporter = nodemailer.createTransport({
 //       host: process.env.EMAIL_HOST,
 //       //port: 587, // Hardcode It
-//         //secure: false, 
+//         //secure: false,
 //       auth: {
 //         user: EMAIL_USER,
 //         pass: EMAIL_PASS,
 //       },
-      
-      
+
 //     });
 //     console.log({EMAIL_PASS}, {EMAIL_USER});
 
@@ -181,7 +180,7 @@
 //       from: EMAIL_USER,
 //       to: user.email,
 //       subject: "Password Reset Request",
-//       text: `You requested a password reset. Please click on the following link to reset your password: 
+//       text: `You requested a password reset. Please click on the following link to reset your password:
 //             http://http://localhost:3000/resetPassword/${token}`,
 //     };
 
@@ -248,7 +247,6 @@
 //   }
 // };
 
-
 import User from "../models/UserSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -269,6 +267,8 @@ export const registerControllers = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Please enter All Fields",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -278,6 +278,8 @@ export const registerControllers = async (req, res, next) => {
       return res.status(409).json({
         success: false,
         message: "User already Exists",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -294,11 +296,15 @@ export const registerControllers = async (req, res, next) => {
       success: true,
       message: "User Created Successfully",
       user: newUser,
+      secure: true,
+        sameSite: "none",
     });
   } catch (err) {
     return res.status(500).json({
       success: false,
       message: err.message,
+      secure: true,
+        sameSite: "none",
     });
   }
 };
@@ -311,6 +317,8 @@ export const loginControllers = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Please enter All Fields",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -320,6 +328,8 @@ export const loginControllers = async (req, res, next) => {
       return res.status(401).json({
         success: false,
         message: "User not found",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -329,6 +339,8 @@ export const loginControllers = async (req, res, next) => {
       return res.status(401).json({
         success: false,
         message: "Incorrect Email or Password",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -338,11 +350,15 @@ export const loginControllers = async (req, res, next) => {
       success: true,
       message: `Welcome back, ${user.name}`,
       user,
+      secure: true,
+        sameSite: "none",
     });
   } catch (err) {
     return res.status(500).json({
       success: false,
       message: err.message,
+      secure: true,
+        sameSite: "none",
     });
   }
 };
@@ -365,6 +381,8 @@ export const setAvatarController = async (req, res, next) => {
     return res.status(200).json({
       isSet: userData.isAvatarImageSet,
       image: userData.avatarImage,
+      secure: true,
+        sameSite: "none",
     });
   } catch (err) {
     next(err);
@@ -394,6 +412,8 @@ export const forgotPasswordController = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Please enter an email address",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -403,6 +423,8 @@ export const forgotPasswordController = async (req, res, next) => {
       return res.status(404).json({
         success: false,
         message: "User not found",
+        secure: true,
+        sameSite: "none",
       });
     }
 
@@ -440,6 +462,8 @@ export const forgotPasswordController = async (req, res, next) => {
         return res.status(200).json({
           success: true,
           message: "Password reset email sent successfully",
+          secure: true,
+        sameSite: "none",
         });
       }
     });
